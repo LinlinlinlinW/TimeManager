@@ -21,7 +21,7 @@ import static javax.swing.JFrame.EXIT_ON_CLOSE;
 
 
 public class UI{
-    private ImageIcon background = new ImageIcon("D:\\2018 winter\\CPSC 210\\projectw1_team999\\src\\img\\bkgImg.jpg");
+    private ImageIcon background = new ImageIcon("src\\bkgImg.jpg");
     private JFrame frame = new JFrame(" TimeManager");
     private JPanel contentPane = (JPanel) frame.getContentPane();
     private JPanel cards;
@@ -41,7 +41,7 @@ public class UI{
     public UI(){
         frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
         frame.setVisible(true);
-        frame.setResizable(false);
+        frame.setResizable(true);
         contentPane.setOpaque(false);
         contentPane.setLayout(new BorderLayout());
 
@@ -160,7 +160,7 @@ public class UI{
         });
 
         try {
-            music = new FileInputStream(new File("D:\\2018 winter\\CPSC 210\\projectw1_team999\\src\\bkgmusic.wav"));
+            music = new FileInputStream(new File("src\\bkgMusic.wav"));
             audios = new AudioStream(music);
         }catch(IOException e1){
             JOptionPane.showMessageDialog(null,"error");

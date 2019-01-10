@@ -68,8 +68,8 @@ public class SchedulePanel {
     //card 4 fields
     private JButton generate;
     private JButton back4;
-    private ImageIcon studentIcon = new ImageIcon("D:\\2018 winter\\CPSC 210\\projectw1_team999\\src\\img\\student.png");
-    private ImageIcon workerIcon = new ImageIcon("D:\\2018 winter\\CPSC 210\\projectw1_team999\\src\\img\\worker.png");
+    private ImageIcon studentIcon = new ImageIcon("src\\student.png");
+    private ImageIcon workerIcon = new ImageIcon("src\\worker.png");
     private JPanel schedulePanel;
     private JLabel[] scheduleLables;
     private Schedule schedule;
@@ -182,7 +182,7 @@ public class SchedulePanel {
         GridLayout gd1_2 = new GridLayout(1,2);
         gd1_2.setHgap(30);
         JPanel buttonsBN1 = new JPanel(gd1_2);
-        buttonsBN1.setBorder(BorderFactory.createEmptyBorder(10,80,50,80));
+        buttonsBN1.setBorder(BorderFactory.createEmptyBorder(10,80,30,80));
         buttonsBN1.setOpaque(false);
         buttonsBN1.add(back1);
         buttonsBN1.add(next1);
@@ -202,11 +202,11 @@ public class SchedulePanel {
         GridLayout gd2_1 = new GridLayout(2,1);
         gd2_1.setVgap(5);
         JPanel getUpPane = new JPanel(gd2_1);
-        getUpPane.setBorder(BorderFactory.createEmptyBorder(10,30,10,30));
+        getUpPane.setBorder(BorderFactory.createEmptyBorder(5,35,5,30));
         JLabel message1 = new JLabel("When do you plan to get up (24-hour format)?");
         message1.setFont(new Font("Serif", Font.PLAIN,23));
         textField1 = new JTextField();
-        textField1.setFont(new Font("Serif", Font.PLAIN,20));
+        textField1.setFont(new Font("Serif", Font.PLAIN,23));
         getUpPane.add(message1);
         getUpPane.add(textField1);
         getUpPane.setOpaque(false);
@@ -214,11 +214,11 @@ public class SchedulePanel {
 
         //paint sleepPane
         JPanel sleepPane = new JPanel(gd2_1);
-        sleepPane.setBorder(BorderFactory.createEmptyBorder(10,30,10,30));
+        sleepPane.setBorder(BorderFactory.createEmptyBorder(5,35,5,30));
         JLabel message2 = new JLabel("When do you plan to sleep (24-hour format)?");
         message2.setFont(new Font("Serif", Font.PLAIN,23));
         textField2 = new JTextField();
-        textField2.setFont(new Font("Serif", Font.PLAIN,20));
+        textField2.setFont(new Font("Serif", Font.PLAIN,23));
         sleepPane.add(message2);
         sleepPane.add(textField2);
         sleepPane.setOpaque(false);
@@ -282,7 +282,7 @@ public class SchedulePanel {
         GridLayout gd2_2 = new GridLayout(1,3);
         gd2_2.setHgap(20);
         JPanel buttonPane2 = new JPanel(gd2_2);
-        buttonPane2.setBorder(BorderFactory.createEmptyBorder(30,40,30,40));
+        buttonPane2.setBorder(BorderFactory.createEmptyBorder(20,55,20,55));
         buttonPane2.setOpaque(false);
 
         buttonPane2.add(apply2);
@@ -387,7 +387,7 @@ public class SchedulePanel {
         GridLayout buttonsLO = new GridLayout(3,1);
         buttonsLO.setVgap(30);
         JPanel buttons = new JPanel(buttonsLO);
-        buttons.setBorder(BorderFactory.createEmptyBorder(80,80,80,50));
+        buttons.setBorder(BorderFactory.createEmptyBorder(50,80,50,50));
 
         apply3 = new JButton("apply");
         apply3.addActionListener(new ActionListener() {
@@ -473,21 +473,6 @@ public class SchedulePanel {
         }
     }
 
-    //Effects: pass params to user's information before card4
-//    private void setInfo(){
-//        user.setIdentity(identity);
-//        user.setGetUpTime(getUpTime);
-//        user.setSleepTime(sleepTime);
-//        user.setJudgeEvent(judgeEvent);
-//
-//        if(judgeEvent==1) {
-//            user.setEvents(events);
-//            eventsManager.initializeEvents(events,sleepTime-getUpTime,identity);
-//        }else{
-//            eventsManager.generateEvents(sleepTime-getUpTime,identity);
-//            events.addAll(eventsManager.getEventsBuilder());
-//        }
-//    }
 
     //Effects: publish user's personal information and save to a txt file
     //         used for debugging
@@ -516,7 +501,7 @@ public class SchedulePanel {
     //Effects: save user's information to a txt file
     private void save(){
         try {
-            List<String> lines = Files.readAllLines(Paths.get("D:\\2018 winter\\CPSC 210\\projectw1_team999\\userData.txt"));
+            List<String> lines = Files.readAllLines(Paths.get("D:\\JavaProject\\TimeManager-master\\userData.txt"));
             PrintWriter writer = new PrintWriter("userData.txt");
 
             if (user.getIdentity() == 1) {
@@ -560,7 +545,7 @@ public class SchedulePanel {
         GridLayout gd4_1 = new GridLayout(3,1);
         gd4_1.setVgap(8);
         infoPanel = new JPanel(gd4_1);
-        infoPanel.setBorder(BorderFactory.createEmptyBorder(10,20,10,20));
+        infoPanel.setBorder(BorderFactory.createEmptyBorder(3,20,3,20));
 
         //paint identity panel
         imageLabel = new JLabel();
@@ -579,7 +564,7 @@ public class SchedulePanel {
         GridLayout gd4_1_1 = new GridLayout(3,1);
         gd4_1_1.setVgap(2);
         msgPanel = new JPanel(gd4_1_1);
-        msgPanel.setBorder(BorderFactory.createEmptyBorder(5,25,5,10));
+        msgPanel.setBorder(BorderFactory.createEmptyBorder(15,25,5,10));
 
         msgGetUpTime = new JLabel("Get up time : "+getUpTime);
         msgGetUpTime.setFont(new Font("Serif", Font.PLAIN,20));

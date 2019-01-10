@@ -45,7 +45,7 @@ public class WeatherPanel{
     private JPanel buttonPanel = new JPanel(gridLayout2);
 
     //little popup frame
-    private ImageIcon bkCurrentWeather = new ImageIcon("D:\\2018 winter\\CPSC 210\\projectw1_team999\\src\\img\\cloud.jpg");
+    private ImageIcon bkCurrentWeather = new ImageIcon("src\\bkgWeather.jpg");
     private JFrame currentWeatherFrame = new JFrame("CURRENT TEMPERATURE");
     private JLabel imgLabel = new JLabel(bkCurrentWeather);
     private JLabel showUp;
@@ -67,7 +67,7 @@ public class WeatherPanel{
     private JButton backToPre = new JButton("back");
 
     //pop-up frame
-    private ImageIcon bkForecastWeather = new ImageIcon("D:\\2018 winter\\CPSC 210\\projectw1_team999\\src\\img\\road.jpg");
+    private ImageIcon bkForecastWeather = bkCurrentWeather;
     private JFrame forecastWeatherFrame = new JFrame("FORECAST");
     private JLabel imgLabel2 = new JLabel(bkForecastWeather);
     private JPanel forecastContentPanel;
@@ -202,12 +202,12 @@ public class WeatherPanel{
         choiceLabel.setText("What do you want to know about the weather in " + city +"?");
         choiceLabel.repaint();
         choiceLabel.setVisible(true);
-        choiceLabel.setBorder(BorderFactory.createEmptyBorder(0,10,0,0));
+        choiceLabel.setBorder(BorderFactory.createEmptyBorder(10,10,0,0));
         choiceLabel.setFont(new Font("Serif", Font.PLAIN,23));
         choiceLabel.setOpaque(false);
 
-        gridLayout2.setVgap(20);
-        buttonPanel.setBorder(BorderFactory.createEmptyBorder(20,70,30,70));
+        gridLayout2.setVgap(10);
+        buttonPanel.setBorder(BorderFactory.createEmptyBorder(8,70,3,70));
         buttonPanel.setOpaque(false);
 
         //current weather button
@@ -239,7 +239,7 @@ public class WeatherPanel{
 
     }
 
-    //Effects: set the looking of BACK button
+    //Effects: set the looking of BACK CONFIRM NEXT button
     private void setButtonsInCard1(){
         JPanel buttonPanel = new JPanel();
         buttonPanel.setOpaque(false);
@@ -247,7 +247,7 @@ public class WeatherPanel{
         GridLayout gridLayout = new GridLayout(1,3);
         gridLayout.setHgap(30);
         buttonPanel.setLayout(gridLayout);
-        buttonPanel.setBorder(BorderFactory.createEmptyBorder(85,130,25,130));
+        buttonPanel.setBorder(BorderFactory.createEmptyBorder(60,140,25,140));
 
         back.addActionListener(new ActionListener() {
             @Override
@@ -373,8 +373,8 @@ public class WeatherPanel{
     //         purposely set invisible
     private void initializeCard2(){
         GridLayout card2Layout = new GridLayout(3,1);
-        card2Layout.setVgap(20);
-        card2.setBorder(BorderFactory.createEmptyBorder(50,50,50,50));
+        card2Layout.setVgap(18);
+        card2.setBorder(BorderFactory.createEmptyBorder(50,10,50,10));
         card2.setLayout(card2Layout);
         card2.setVisible(false);
         card2.setOpaque(false);
@@ -444,15 +444,15 @@ public class WeatherPanel{
         message.setFont(new Font("Serif", Font.PLAIN,23));
         labelPanel2.add(message);
         labelPanel2.setOpaque(false);
-        labelPanel2.setBorder(BorderFactory.createEmptyBorder(40,50,10,10));
+        labelPanel2.setBorder(BorderFactory.createEmptyBorder(40,50,0,40));
 
         //set buttons in the textPanel
         GridLayout textPanelLayout = new GridLayout(2,1);
         textPanelLayout.setVgap(20);
-        textPanel.setBorder(BorderFactory.createEmptyBorder(0,50,0,50));
+        textPanel.setBorder(BorderFactory.createEmptyBorder(0,100,0,100));
         textPanel.setLayout(textPanelLayout);
         textPanel.setOpaque(false);
-        text2.setFont(new Font("Serif", Font.PLAIN,20));
+        text2.setFont(new Font("Serif", Font.PLAIN,23));
 
         //add textField(text2) and buttons panel to the textPanel
         textPanel.add(text2);
@@ -462,7 +462,7 @@ public class WeatherPanel{
 
     //Effects: paint pop-up window of forecast weather
     private void paintForecastFrame(){
-        forecastWeatherFrame.setBounds(380,120,bkForecastWeather.getIconWidth(),bkForecastWeather.getIconHeight());
+        forecastWeatherFrame.setBounds(380,0,bkForecastWeather.getIconWidth(),bkForecastWeather.getIconHeight());
         forecastWeatherFrame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         forecastWeatherFrame.setVisible(false);
         forecastWeatherFrame.setResizable(false);
@@ -558,11 +558,11 @@ public class WeatherPanel{
     //Effects: pass in params and paint final frame
     private void setForecastFrame(){
         GridLayout contentPanelLayout = new GridLayout(numOfDay,1);
-        contentPanelLayout.setVgap(10);
+        contentPanelLayout.setVgap(25);
         forecastContentPanel = (JPanel) forecastWeatherFrame.getContentPane();
         forecastContentPanel.setOpaque(false);
         forecastContentPanel.setLayout(contentPanelLayout);
-        forecastContentPanel.setBorder(BorderFactory.createEmptyBorder(5,150,5,150));
+        forecastContentPanel.setBorder(BorderFactory.createEmptyBorder(10,80,10,50));
 
         for(int i=0;i<numOfDay;i++)
             forecastContentPanel.add(forecastPanelBranch[i]);
