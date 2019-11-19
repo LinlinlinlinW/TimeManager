@@ -163,7 +163,7 @@ public class WeatherPanel{
     //Effects: get user's answer of the name of the city
     private void getNameOfCity() throws Exception{
         String userInput = textField.getText();
-        String nameOfCity = ("http://api.apixu.com/v1/current.json?key=6304dd9027d2482a98600853181311&q=" + userInput);
+        String nameOfCity = ("http://api.weatherstack.com/current" + userInput);
         URL url = new URL(nameOfCity);
         BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream()));
         String result;
