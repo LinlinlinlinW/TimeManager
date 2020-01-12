@@ -1,21 +1,17 @@
 package ui;
 
-import com.sun.javafx.iio.jpeg.JPEGImageLoader;
 import exceptions.ImproperInputException;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Scanner;
 
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 
@@ -161,25 +157,29 @@ public class WeatherPanel{
     }
 
     //Effects: get user's answer of the name of the city
-    private void getNameOfCity() throws Exception{
-        String userInput = textField.getText();
-        String nameOfCity = ("http://api.weatherstack.com/current" + userInput);
-        URL url = new URL(nameOfCity);
-        BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream()));
-        String result;
-        StringBuilder sb = new StringBuilder();
-        while ((result = br.readLine()) != null) {
-            sb.append(result);
-            sb.append(System.lineSeparator());
-        }
-        result = sb.toString();
-        JSONObject response = new JSONObject(result);
-        responseFromNet = response.getJSONObject("location").getString("name");
-        System.out.println("response from net is " + responseFromNet);
+    private void getNameOfCity(){
+        try {
+            String userInput = textField.getText();
+            String nameOfCity = ("http://api.weatherstack.com/current?access_key=0b5cdceaef29c5d6d19857b81ee9ac72&query=" + userInput);
+            URL url = new URL(nameOfCity);
+            BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream()));
+            String result;
+            StringBuilder sb = new StringBuilder();
+            while ((result = br.readLine()) != null) {
+                sb.append(result);
+                sb.append(System.lineSeparator());
+            }
+            result = sb.toString();
+            JSONObject response = new JSONObject(result);
+            responseFromNet = response.getJSONObject("location").getString("name");
+            System.out.println("response from net is " + responseFromNet);
 
-        city=responseFromNet;
-        getWeatherChoice();
-        weatherChoicePanel.setVisible(true);
+            city = responseFromNet;
+            getWeatherChoice();
+            weatherChoicePanel.setVisible(true);
+        } catch(Exception e) {
+            System.out.println("there is an exception in get name of city "+e);
+        }
 
     }
 
@@ -295,7 +295,7 @@ public class WeatherPanel{
     //         not paint anything, just receiving from web
     private void getCurrentWeatherFromAPI(){
         try {
-            URL url = new URL("http://api.apixu.com/v1/current.json?key=6304dd9027d2482a98600853181311&q="+responseFromNet);
+            URL url = new URL("http://api.weatherstack.com/current?access_key=0b5cdceaef29c5d6d19857b81ee9ac72&query="+responseFromNet);
             BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream()));
             String result;
             StringBuilder sb = new StringBuilder();
@@ -304,17 +304,16 @@ public class WeatherPanel{
                 sb.append(System.lineSeparator());
             }
             result = sb.toString();
+
             JSONObject response = new JSONObject(result);
-            currentTemp = response.getJSONObject("current").getInt("temp_c") + " centigrade";
-            currentFeel = response.getJSONObject("current").getInt("feelslike_c") + " centigrade";
+            currentTemp = response.getJSONObject("current").getInt("temperature") + " centigrade";
+            currentFeel = response.getJSONObject("current").getInt("feelslike") + " centigrade";
 
             System.out.println("currentTemp: "+currentTemp);
             System.out.println("currentFeel: "+currentFeel);
         }catch(IOException | JSONException exception){
-            System.out.println("error in getting currentTemp and currentFeel from API!");
+            System.out.println("error in getting currentTemp and currentFeel from API!" + exception);
         }
-
-
     }
 
     //Modifies: showUp, message1,message2
@@ -372,18 +371,36 @@ public class WeatherPanel{
     //         cardLayout will display card2
     //         purposely set invisible
     private void initializeCard2(){
-        GridLayout card2Layout = new GridLayout(3,1);
-        card2Layout.setVgap(18);
-        card2.setBorder(BorderFactory.createEmptyBorder(50,10,50,10));
-        card2.setLayout(card2Layout);
-        card2.setVisible(false);
+        //GridLayout card2Layout = new GridLayout(3,1);
+        //card2Layout.setVgap(18);
+        //card2.setBorder(BorderFactory.createEmptyBorder(50,10,50,10));
+        //card2.setLayout(card2Layout);
+        card2.setVisible(true);
         card2.setOpaque(false);
 
-        paintMainPanel();
-        paintForecastFrame();
+        card2.add(poor());
 
-        card2.add(labelPanel2);
-        card2.add(textPanel);
+        //paintMainPanel();
+        //paintForecastFrame();
+        //card2.add(labelPanel2);
+        //card2.add(textPanel);
+    }
+
+    //Effects: paint the poor panel of card2
+    private JPanel poor(){
+        JPanel jPanel = new JPanel(new GridLayout(2,1));
+        JLabel text1 = new JLabel("Due to the limited expenditure, current API plan does not support forecast function(but it used to!!)");
+        JLabel text2 = new JLabel("Thus I am forwardly looking for a COOP job, to support my tech-development!");
+        text1.setFont(new Font("Serif", Font.BOLD, 17));
+        text2.setFont(new Font("Serif", Font.BOLD, 17));
+        //ImageIcon cry = new ImageIcon("src\\cry.png");
+        //JLabel imgL = new JLabel(cry);
+        jPanel.add(text1);
+        jPanel.add(text2);
+        //jPanel.add(imgL);
+        jPanel.setBorder(BorderFactory.createEmptyBorder(100,5,5,5));
+        jPanel.setOpaque(false);
+        return jPanel;
     }
 
     //Effects: paint the main panel of card2
@@ -487,8 +504,7 @@ public class WeatherPanel{
             throw new ImproperInputException("Input out of range !");
 
         //get INFO from API
-        String netAdd =
-                "http://api.apixu.com/v1/forecast.json?key=6304dd9027d2482a98600853181311&q=" + city + "&days="+numOfDay;
+        String netAdd ="http://api.weatherstack.com/forecast?access_key=0b5cdceaef29c5d6d19857b81ee9ac72&query="+responseFromNet;
         URL url = new URL(netAdd);
         BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream()));
         String result;
