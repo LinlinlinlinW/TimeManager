@@ -390,7 +390,7 @@ public class WeatherPanel{
     private JPanel poor(){
         JPanel jPanel = new JPanel(new GridLayout(2,1));
         JLabel text1 = new JLabel("Due to the limited expenditure, current API plan does not support forecast function(but it used to!!)");
-        JLabel text2 = new JLabel("Thus I am forwardly looking for a COOP job, to support my tech-development!");
+        JLabel text2 = new JLabel("Thus I am forwardly looking for a COOP job, to support my tech-development!!");
         text1.setFont(new Font("Serif", Font.BOLD, 17));
         text2.setFont(new Font("Serif", Font.BOLD, 17));
 
