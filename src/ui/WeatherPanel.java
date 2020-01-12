@@ -393,11 +393,10 @@ public class WeatherPanel{
         JLabel text2 = new JLabel("Thus I am forwardly looking for a COOP job, to support my tech-development!");
         text1.setFont(new Font("Serif", Font.BOLD, 17));
         text2.setFont(new Font("Serif", Font.BOLD, 17));
-        //ImageIcon cry = new ImageIcon("src\\cry.png");
-        //JLabel imgL = new JLabel(cry);
+
         jPanel.add(text1);
         jPanel.add(text2);
-        //jPanel.add(imgL);
+
         jPanel.setBorder(BorderFactory.createEmptyBorder(100,5,5,5));
         jPanel.setOpaque(false);
         return jPanel;
