@@ -1,11 +1,8 @@
 package ui;
 
-import jdk.nashorn.internal.scripts.JO;
 import sun.audio.AudioPlayer;
 import sun.audio.AudioStream;
 
-import java.applet.Applet;
-import java.applet.AudioClip;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,17 +10,13 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
 import javax.swing.*;
-
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
 
 
 public class UI{
     private ImageIcon background = new ImageIcon("src\\bkgImg.jpg");
     private JFrame frame = new JFrame(" TimeManager");
-    private JPanel contentPane = (JPanel) frame.getContentPane();
     private JPanel cards;
     private CardLayout cardLayout;
     private Dimension dim = frame.getToolkit().getScreenSize();
@@ -35,18 +28,45 @@ public class UI{
     private Font myFont = new Font("Serif", Font.BOLD, 40);
     private WeatherPanel weatherPanel;
     private SchedulePanel schedulePanel;
-    private InputStream music;
     private AudioStream audios;
 
     public UI(){
+        initializeFrame();
+        initializeCards();
+        initializeContentPane();
+        initializeLayeredPane();
+        setButtonsAction();
+
+        cardLayout.show(cards,"card H");
+    }
+
+    //Effects: set the size of the frame
+    private void initializeFrame(){
         frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
         frame.setVisible(true);
         frame.setResizable(true);
+        frame.setSize(background.getIconWidth(),background.getIconHeight());
+        frame.setLocation(dim.width/2,dim.height/2);
+        frame.setLocationRelativeTo(null);
+    }
+
+    //Effects: initialize contentPane of JFrame
+    private void initializeContentPane(){
+        JPanel contentPane = (JPanel) frame.getContentPane();
         contentPane.setOpaque(false);
         contentPane.setLayout(new BorderLayout());
+        contentPane.add(cards,BorderLayout.CENTER);
+    }
 
-        setFrameLocation();
+    //Effects: initialize layeredPane of JFrame
+    private void initializeLayeredPane(){
+        JLayeredPane layeredPane = frame.getLayeredPane();
+        layeredPane.add(setBackgroundImage(),new Integer(Integer.MIN_VALUE));
+        layeredPane.setOpaque(true);
+    }
 
+    //Effects: initialize cardLayout
+    private void initializeCards(){
         cardLayout = new CardLayout();
         cards = new JPanel(cardLayout);
         cards.setOpaque(false);
@@ -54,18 +74,9 @@ public class UI{
         cards.add("card H",card1());
         cards.add("card W",card2());
         cards.add("card S",card3());
-
-        setButtonsAction();
-
-        cardLayout.show(cards,"card H");
-        contentPane.add(cards,BorderLayout.CENTER);
-
-        JLayeredPane layeredPane = frame.getLayeredPane();
-        layeredPane.add(setBackgroundImage(),new Integer(Integer.MIN_VALUE));
-        layeredPane.setOpaque(true);
     }
 
-    //Effects: home page of program
+    //Effects: home page of the program
     private JPanel card1(){
         TimePanel timePanel = new TimePanel();
 
@@ -119,7 +130,7 @@ public class UI{
         return schedulePanel.getSchedulePanel();
     }
 
-    //Effects: set button action's
+    //Effects: initialize buttons' behavior in the main page
     private void setButtonsAction(){
         JButton back = weatherPanel.getBACKButton();
         back.addActionListener(new ActionListener() {
@@ -160,7 +171,7 @@ public class UI{
         });
 
         try {
-            music = new FileInputStream(new File("src\\bkgMusic.wav"));
+            InputStream music = new FileInputStream(new File("src\\bkgMusic.wav"));
             audios = new AudioStream(music);
         }catch(IOException e1){
             JOptionPane.showMessageDialog(null,"error");
@@ -196,15 +207,8 @@ public class UI{
         return imgLabel;
     }
 
-    //Effects: set the size of the frame
-    private void setFrameLocation(){
-        frame.setSize(background.getIconWidth(),background.getIconHeight());
-        frame.setLocation(dim.width/2,dim.height/2);
-        frame.setLocationRelativeTo(null);
-    }
-
-    //Effects: start point of the whole program
+    //Effects: starting point of the whole program
     public static void main(String[] args) {
-        UI ui = new UI();
+        new UI();
     }
 }
