@@ -15,11 +15,17 @@ import static javax.swing.JFrame.EXIT_ON_CLOSE;
 
 
 public class UI{
+    // fields for JFrame
     private ImageIcon background = new ImageIcon("src\\bkgImg.jpg");
     private JFrame frame = new JFrame(" TimeManager");
+    private Dimension dim = frame.getToolkit().getScreenSize();
+    private AudioStream audios;
+
+    // fields for cardLayout
     private JPanel cards;
     private CardLayout cardLayout;
-    private Dimension dim = frame.getToolkit().getScreenSize();
+
+    // fields for weather and schedule panels
     private JButton weather = new JButton("Weather");
     private JButton schedule = new JButton("Schedules");
     private JButton quit = new JButton("quit");
@@ -28,7 +34,6 @@ public class UI{
     private Font myFont = new Font("Serif", Font.BOLD, 40);
     private WeatherPanel weatherPanel;
     private SchedulePanel schedulePanel;
-    private AudioStream audios;
 
     public UI(){
         initializeFrame();
@@ -71,13 +76,13 @@ public class UI{
         cards = new JPanel(cardLayout);
         cards.setOpaque(false);
 
-        cards.add("card H",card1());
-        cards.add("card W",card2());
-        cards.add("card S",card3());
+        cards.add("card H", cardHome());
+        cards.add("card W", cardWeather());
+        cards.add("card S", cardSchedule());
     }
 
-    //Effects: home page of the program
-    private JPanel card1(){
+    //Effects: initialize and return home page of the program
+    private JPanel cardHome(){
         TimePanel timePanel = new TimePanel();
 
 
@@ -118,14 +123,14 @@ public class UI{
         return  cardHome;
     }
 
-    //Effects: card2 -- weather panel
-    private JPanel card2(){
+    //Effects: initialize and return weather panel
+    private JPanel cardWeather(){
         weatherPanel = new WeatherPanel();
         return weatherPanel.getWeatherPanel();
     }
 
-    //Effects: card3 -- schedule panel
-    private JPanel card3(){
+    //Effects: initialize and return schedule panel
+    private JPanel cardSchedule(){
         schedulePanel = new SchedulePanel();
         return schedulePanel.getSchedulePanel();
     }

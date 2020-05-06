@@ -32,7 +32,7 @@ public class WeatherPanel{
     private JButton back = new JButton("BACK");
     private JButton next = new JButton("NEXT");
     private JButton confirm = new JButton("CONFIRM");
-    private JLabel choiceLabel;//text message of "which city do you...?"
+    private JLabel choiceLabel; //text message of "which city do you...?"
     private JButton buttonCurrent = new JButton("current weather");
     private JButton buttonForecast = new JButton("forecast");
     private JButton buttonApply = new JButton("APPLY");
@@ -90,7 +90,7 @@ public class WeatherPanel{
     }
 
 
-    /************************initialize card 1*****************************/
+    /************************ initialize card 1 *****************************/
 
     //Effects: initialize card 1
     private void initializeCard1(){
@@ -127,7 +127,7 @@ public class WeatherPanel{
                     getNameOfCity();
                     getCurrentWeatherFromAPI();//get current weather information, prepared for CURRENT
                 }catch (Exception ex){
-                    JOptionPane.showMessageDialog(null, "please input effective name!");
+                    JOptionPane.showMessageDialog(null, "please input effective name!" + ex);
                 }
             }
         });
@@ -156,7 +156,7 @@ public class WeatherPanel{
 
     }
 
-    //Effects: get user's answer of the name of the city
+    //Effects: get statistics from API
     private void getNameOfCity(){
         try {
             String userInput = textField.getText();
@@ -364,12 +364,10 @@ public class WeatherPanel{
 
 
 
-    /************************initialize card 2*****************************/
+    /************************ initialize card 2 *****************************/
 
-    //Effects: initialize card2
-    //         if user click "forecast weather"
-    //         cardLayout will display card2
-    //         purposely set invisible
+    //Effects: initialize card2. If user click "forecast weather"
+    //         cardLayout will display card2, purposely set invisible
     private void initializeCard2(){
         //GridLayout card2Layout = new GridLayout(3,1);
         //card2Layout.setVgap(18);
